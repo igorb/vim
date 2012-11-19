@@ -75,6 +75,7 @@ nnoremap <esc> :noh<return><esc>
  :map <S-f> :Rgrep<cr>
  let g:ackprg="ack-grep -H --nocolor --nogroup --column"
  :let Grep_Default_Filelist = '*.*'
+ :let Grep_Skip_Dirs = 'coverage'
  :let Grep_Skip_Files = '*.log *.css *.js *.sql *.git *.apk *.png *.pdf *.svg'
  set nocompatible
 
