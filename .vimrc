@@ -4,7 +4,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " let Vundle manage Vundle
-" required! 
+" required!
 Bundle 'gmarik/vundle'
 
 " My Bundlendles here:
@@ -13,6 +13,7 @@ Bundle 'vim-scripts/comments.vim'
 Bundle 'vim-scripts/grep.vim'
 Bundle 'vim-scripts/Tabular'
 Bundle 'vim-scripts/FuzzyFinder'
+Bundle 'vim-scripts/xml.vim'
 
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-ragtag'
@@ -24,7 +25,10 @@ Bundle 'scrooloose/snipmate-snippets'
 
 Bundle 'wincent/Command-T'
 Bundle 'Townk/vim-autoclose'
-Bundle 'edsono/vim-matchit'
+
+Bundle 'slim-template/vim-slim'
+
+Bundle 'kchmck/vim-coffee-script'
 "Bundle 'ecomba/vim-ruby-refactoring'
 
 filetype plugin indent on     " required!
@@ -50,14 +54,20 @@ autocmd BufWritePre *.* :%s/\s\+$//e
 :set nocindent
 set nohidden
 nnoremap <esc> :noh<return><esc>
-
+au BufNewFile,BufRead *.ahcx set filetype=xml
+au BufNewFile,BufRead *.view set filetype=xml
+au BufNewFile,BufRead *.erb set filetype=xml
 
 " nerdtree plugin
- :map <F2> :NERDTreeToggle ~/work/Beanstock-Marketplace<cr>
+ :map <F2> :NERDTreeToggle /appzone<cr>
+ "~/work/vmware_views<cr>
+ "/vmware<cr>
+ "/avaya<cr>
+ "~/work/test-file-storage-system/<cr>
  :map ntf :NERDTreeFind<cr>
 
 " CommandT plugin settings
- set wildignore+=*.sql,*.log,*.git,*.apk,*.png,*.pdf,*.svg
+ set wildignore+=coverage/**,*.sql,*.log,*.git,*.apk,*.png,*.pdf,*.svg,*.csv
  :map <C-f> :CommandT<cr>
  let g:CommandTCursorRightMap=['<C-r>']
  let g:CommandTAcceptSelectionTabMap=['<C-l>']
@@ -65,7 +75,7 @@ nnoremap <esc> :noh<return><esc>
  map <F9> :CommandTFlush<cr>
 
 " FuzzyFinder
- let g:fuzzy_ignore = "*.png;*.jpeg;*.jpg;*.gif;*.log;public/**/*;log/**/*;coverage/**/*;tmp/**/*;.git/**/*;.sass-cache/**/*;"
+ let g:fuzzy_ignore = "*.png;*.jpeg;*.jpg;*.gif;*.log;public/**/*;log/**/*;coverage/**/*;tmp/**/*;.git/**/*;.sass-cache/**/*;*.csv;"
 
 " Rgrep
  let s:os = system("uname")
@@ -76,7 +86,7 @@ nnoremap <esc> :noh<return><esc>
  let g:ackprg="ack-grep -H --nocolor --nogroup --column"
  :let Grep_Default_Filelist = '*.*'
  :let Grep_Skip_Dirs = 'coverage'
- :let Grep_Skip_Files = '*.log *.css *.js *.sql *.git *.apk *.png *.pdf *.svg'
+ :let Grep_Skip_Files = '*.log *.css *.sql *.git *.apk *.png *.pdf *.svg *.csv'
  set nocompatible
 
 :vnoremap <tab> :Tabulariz /
