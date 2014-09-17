@@ -41,10 +41,16 @@ set number
 set guifont=Menlo:h14
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 :map tp :tabprevious<cr>
-:imap tn :tabnext<cr>
-:map tl :Tablisttoggle<cr>
-:map tc :tabclose<cr>
+:map tn :tabnext<cr>
+":map tl :Tablisttoggle<cr>
 :map tt :tabnew<cr>
+:map tc :tabclose<cr>
+"
+:map te :tabedit<cr>
+:map to :tabonly<cr>
+:map tf :tabfirst<cr>
+:map tl :tablast<cr>
+:map tm :tabmove<cr>
 set hlsearch
 set incsearch
 :map <C-l> :%s/\s\+$//<cr>
@@ -59,15 +65,14 @@ au BufNewFile,BufRead *.view set filetype=xml
 au BufNewFile,BufRead *.erb set filetype=xml
 
 " nerdtree plugin
- :map <F2> :NERDTreeToggle /appzone<cr>
- "~/work/vmware_views<cr>
- "/vmware<cr>
+ ":map <F2> :NERDTreeToggle ~/work/toro<cr>
+ :map <F2> :NERDTreeToggle
  "/avaya<cr>
  "~/work/test-file-storage-system/<cr>
  :map ntf :NERDTreeFind<cr>
 
 " CommandT plugin settings
- set wildignore+=coverage/**,*.sql,*.log,*.git,*.apk,*.png,*.pdf,*.svg,*.csv
+ set wildignore+=coverage/**,*.sql,*.log*,*.git,*.apk,*.png,*.pdf,*.svg,*.csv
  :map <C-f> :CommandT<cr>
  let g:CommandTCursorRightMap=['<C-r>']
  let g:CommandTAcceptSelectionTabMap=['<C-l>']
@@ -86,7 +91,7 @@ au BufNewFile,BufRead *.erb set filetype=xml
  let g:ackprg="ack-grep -H --nocolor --nogroup --column"
  :let Grep_Default_Filelist = '*.*'
  :let Grep_Skip_Dirs = 'coverage'
- :let Grep_Skip_Files = '*.log *.css *.sql *.git *.apk *.png *.pdf *.svg *.csv'
+ :let Grep_Skip_Files = '*.log* *.css *.sql *.git *.apk *.png *.pdf *.svg *.csv'
  set nocompatible
 
 :vnoremap <tab> :Tabulariz /
