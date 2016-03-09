@@ -12,7 +12,7 @@ Bundle 'vim-scripts/L9'
 Bundle 'vim-scripts/comments.vim'
 Bundle 'vim-scripts/grep.vim'
 Bundle 'vim-scripts/Tabular'
-Bundle 'vim-scripts/FuzzyFinder'
+"Bundle 'vim-scripts/FuzzyFinder'
 Bundle 'vim-scripts/xml.vim'
 
 Bundle 'tpope/vim-endwise'
@@ -27,6 +27,7 @@ Bundle 'wincent/Command-T'
 Bundle 'Townk/vim-autoclose'
 
 Bundle 'slim-template/vim-slim'
+"Bundle 'digitaltoad/vim-jade'
 
 Bundle 'kchmck/vim-coffee-script'
 "Bundle 'ecomba/vim-ruby-refactoring'
@@ -65,14 +66,11 @@ au BufNewFile,BufRead *.view set filetype=xml
 au BufNewFile,BufRead *.erb set filetype=xml
 
 " nerdtree plugin
- ":map <F2> :NERDTreeToggle ~/work/toro<cr>
  :map <F2> :NERDTreeToggle
- "/avaya<cr>
- "~/work/test-file-storage-system/<cr>
  :map ntf :NERDTreeFind<cr>
 
 " CommandT plugin settings
- set wildignore+=coverage/**,*.sql,*.log*,*.git,*.apk,*.png,*.pdf,*.svg,*.csv
+ set wildignore+=coverage/**,downloads/**,node_modules/**,tmp/**,*.sql,*.log*,*.git,*.apk,*.png,*.pdf,*.svg,*.csv
  :map <C-f> :CommandT<cr>
  let g:CommandTCursorRightMap=['<C-r>']
  let g:CommandTAcceptSelectionTabMap=['<C-l>']
@@ -80,7 +78,20 @@ au BufNewFile,BufRead *.erb set filetype=xml
  map <F9> :CommandTFlush<cr>
 
 " FuzzyFinder
- let g:fuzzy_ignore = "*.png;*.jpeg;*.jpg;*.gif;*.log;public/**/*;log/**/*;coverage/**/*;tmp/**/*;.git/**/*;.sass-cache/**/*;*.csv;"
+" Truth be told, I don't remember what these do, but I must have
+" found them necessary back when I installed fuzzyfinder years ago
+ "let s:slash = '[/\\]'
+ "let s:startname = '(^|'.s:slash.')'
+ "let s:endname = '($|'.s:slash.')'
+" directories and extensions to ignore when listing files
+" these contain a lot of Python-isms, yours will probably vary
+ "let s:extension = '\.png|\.jpeg|\.jpg|\.gif|\.log|\.csv|\.swp|\.swo'
+ "let s:dirname = 'public|log|coverage|node_modules|downloads|tmp|\.git|\.sass-cache'
+ "let g:fuf_file_exclude = '\v'.'('.s:startname.'('.s:dirname.')'.s:endname.')|(('.s:extension.')$)'
+ "let g:fuf_dir_exclude = '\v'.s:startname.'('.s:dirname.')'.s:endname
+" limit number of displayed matches
+" (makes response instant even on huge source trees)
+ "let g:fuf_enumeratingLimit = 60
 
 " Rgrep
  let s:os = system("uname")
@@ -90,8 +101,8 @@ au BufNewFile,BufRead *.erb set filetype=xml
  :map <S-f> :Rgrep<cr>
  let g:ackprg="ack-grep -H --nocolor --nogroup --column"
  :let Grep_Default_Filelist = '*.*'
- :let Grep_Skip_Dirs = 'coverage'
- :let Grep_Skip_Files = '*.log* *.css *.sql *.git *.apk *.png *.pdf *.svg *.csv'
+ :let Grep_Skip_Dirs = 'public log coverage node_modules downloads tmp .git .sass-cache'
+ :let Grep_Skip_Files = '*.log* *.sql *.git *.apk *.png *.jpeg *.jpg *.pdf *.svg *.csv *.swp *.swo'
  set nocompatible
 
 :vnoremap <tab> :Tabulariz /
