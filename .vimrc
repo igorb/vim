@@ -39,7 +39,15 @@ colorscheme desert
 hi Comment guifg=Grey
 set expandtab ts=2 sw=2 ai
 set number
-set guifont=Menlo:h14
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Inconsolata\ 12
+  elseif has("gui_macvim")
+    set guifont=Menlo\ Regular:h14
+  elseif has("gui_win32")
+    set guifont=Consolas:h11:cANSI
+  endif
+endif
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 :map tp :tabprevious<cr>
 :map tn :tabnext<cr>
@@ -61,6 +69,7 @@ autocmd BufWritePre *.* :%s/\s\+$//e
 :set nocindent
 set nohidden
 nnoremap <esc> :noh<return><esc>
+nnoremap <C-A> ggVG
 au BufNewFile,BufRead *.ahcx set filetype=xml
 au BufNewFile,BufRead *.view set filetype=xml
 au BufNewFile,BufRead *.erb set filetype=xml
