@@ -23,7 +23,8 @@ Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/snipmate-snippets'
 
-Bundle 'wincent/Command-T'
+" Bundle 'wincent/Command-T'
+Bundle 'ctrlpvim/ctrlp.vim'
 Bundle 'Townk/vim-autoclose'
 
 Bundle 'slim-template/vim-slim'
@@ -78,29 +79,33 @@ au BufNewFile,BufRead *.erb set filetype=xml
  :map <F2> :NERDTreeToggle
  :map ntf :NERDTreeFind<cr>
 
-" CommandT plugin settings
- set wildignore+=coverage/**,downloads/**,node_modules/**,tmp/**,*.sql,*.log*,*.git,*.apk,*.png,*.pdf,*.svg,*.csv
- :map <C-f> :CommandT<cr>
- let g:CommandTCursorRightMap=['<C-r>']
- let g:CommandTAcceptSelectionTabMap=['<C-l>']
- let g:CommandTMatchWindowAtTop=1
- map <F9> :CommandTFlush<cr>
 
 " FuzzyFinder
-" Truth be told, I don't remember what these do, but I must have
-" found them necessary back when I installed fuzzyfinder years ago
- "let s:slash = '[/\\]'
- "let s:startname = '(^|'.s:slash.')'
- "let s:endname = '($|'.s:slash.')'
-" directories and extensions to ignore when listing files
-" these contain a lot of Python-isms, yours will probably vary
- "let s:extension = '\.png|\.jpeg|\.jpg|\.gif|\.log|\.csv|\.swp|\.swo'
- "let s:dirname = 'public|log|coverage|node_modules|downloads|tmp|\.git|\.sass-cache'
- "let g:fuf_file_exclude = '\v'.'('.s:startname.'('.s:dirname.')'.s:endname.')|(('.s:extension.')$)'
- "let g:fuf_dir_exclude = '\v'.s:startname.'('.s:dirname.')'.s:endname
-" limit number of displayed matches
-" (makes response instant even on huge source trees)
- "let g:fuf_enumeratingLimit = 60
+" https://github.com/ctrlpvim/ctrlp.vim
+" https://sourcediving.com/better-fuzzy-finding-in-vim-2f1e8597b3b9
+" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co - exclude-standard', 'find %s -type f']
+
+" set wildignore+=coverage/**,downloads/**,node_modules/**,tmp/**,*.sql,*.log*,*.git,*.apk,*.png,*.pdf,*.svg,*.csv
+let g:ctrlp_custom_ignore = {
+      \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+      \ 'file': '\v\.(exe|so|dll)$',
+      \ 'link': 'some_bad_symbolic_links',
+      \ }
+
+let g:ctrlp_user_command = {
+      \    'types': {
+      \      1: [
+      \        '.git',
+      \        'cd %s &&
+      \         git ls-files . -co --exclude-standard
+      \         | awk ''{ print length, $0 }''
+      \         | sort -n -s
+      \         | cut -d" " -f2-'
+      \      ],
+      \    },
+      \    'fallback': 'find %s -type f'
+      \  }
+
 
 " Rgrep
  let s:os = system("uname")
@@ -122,6 +127,11 @@ au BufNewFile,BufRead *.erb set filetype=xml
  :map gv :Rview<cr>
  :map gc :Rcontroller<cr>
  :map gm :Rmodel<cr>
+
+vmap <C-c> "+yi
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+imap <C-v> <ESC>"+pa
 
 " to start vim maximized
 function Maximize_Window()
